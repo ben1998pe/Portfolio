@@ -122,10 +122,10 @@ const Projects = () => {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center space-y-2 mb-6">
-            <h1 className="text-4xl lg:text-5xl font-bold">
-              <span className="text-gradient">Proyectos</span>
+            <h1 className="text-3xl lg:text-4xl font-title">
+              <span className="text-gradient">PROYECTOS</span>
             </h1>
-            <p className="text-lg text-brand-soft max-w-2xl mx-auto">
+            <p className="text-base text-brand-soft max-w-2xl mx-auto font-body">
               Una selección de mis trabajos más destacados y proyectos en desarrollo
             </p>
           </motion.div>
@@ -166,10 +166,10 @@ const Projects = () => {
                     
                     {/* Content */}
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-white group-hover:text-brand-accent transition-colors line-clamp-2">
-                        {project.title}
+                      <h3 className="text-base font-semibold text-white group-hover:text-brand-accent transition-colors line-clamp-2 font-ui">
+                        {project.title.toUpperCase()}
                       </h3>
-                      <p className="text-brand-soft/80 text-xs leading-relaxed line-clamp-3">
+                      <p className="text-brand-soft/80 text-xs leading-relaxed line-clamp-3 font-body">
                         {project.description}
                       </p>
                       

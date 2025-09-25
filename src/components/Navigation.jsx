@@ -29,7 +29,7 @@ const Navigation = () => {
             >
               <span className="text-white font-bold text-sm">B</span>
             </motion.div>
-            <span className="text-xl font-bold text-gradient group-hover:scale-105 transition-transform">
+            <span className="text-lg font-title text-gradient group-hover:scale-105 transition-transform">
               BOSCCOA
             </span>
           </Link>
@@ -44,13 +44,13 @@ const Navigation = () => {
               >
                 <motion.span
                   whileHover={{ scale: 1.05 }}
-                  className={`text-sm font-medium transition-colors duration-300 ${
+                  className={`text-sm font-ui transition-colors duration-300 ${
                     location.pathname === item.path
                       ? 'text-brand-accent'
                       : 'text-white hover:text-brand-accent'
                   }`}
                 >
-                  {item.name}
+                  {item.name.toUpperCase()}
                 </motion.span>
                 
                 {/* Active indicator */}

@@ -86,10 +86,10 @@ const Contact = () => {
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center space-y-4">
-          <h1 className="text-4xl lg:text-5xl font-bold">
-            <span className="text-gradient">Contacto</span>
+          <h1 className="text-3xl lg:text-4xl font-title">
+            <span className="text-gradient">CONTACTO</span>
           </h1>
-          <p className="text-lg text-brand-soft max-w-2xl mx-auto">
+          <p className="text-base text-brand-soft max-w-2xl mx-auto font-body">
             ¿Tienes un proyecto en mente? ¡Hablemos y hagamos que suceda!
           </p>
         </motion.div>
@@ -98,10 +98,9 @@ const Contact = () => {
           {/* Left Column - Contact Methods */}
           <motion.div variants={itemVariants} className="space-y-6">
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-white">Conectemos</h2>
-              <p className="text-brand-soft leading-relaxed">
-                Elige la forma que prefieras para contactarme. Estoy disponible para proyectos 
-                nuevos, consultorías y colaboraciones interesantes.
+              <h2 className="text-xl font-bold text-white font-ui">CONECTEMOS</h2>
+              <p className="text-brand-soft leading-relaxed font-body">
+                Elige la forma que prefieras para contactarme. Estoy disponible para proyectos nuevos, consultorías y colaboraciones interesantes.
               </p>
             </div>
 
@@ -127,10 +126,10 @@ const Contact = () => {
                         {method.icon}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-white group-hover:text-brand-accent transition-colors">
-                          {method.title}
+                        <h3 className="font-semibold text-white group-hover:text-brand-accent transition-colors font-ui">
+                          {method.title.toUpperCase()}
                         </h3>
-                        <p className="text-sm text-brand-soft/80 mt-1">
+                        <p className="text-sm text-brand-soft/80 mt-1 font-body">
                           {method.value}
                         </p>
                       </div>
@@ -144,8 +143,8 @@ const Contact = () => {
           {/* Right Column - Contact Form */}
           <motion.div variants={itemVariants} className="space-y-4">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-2">Envíame un mensaje</h2>
-              <p className="text-brand-soft">
+              <h2 className="text-xl font-bold text-white mb-2 font-ui">ENVÍAME UN MENSAJE</h2>
+              <p className="text-brand-soft font-body">
                 Completa el formulario y me pondré en contacto contigo lo antes posible.
               </p>
             </div>
@@ -153,8 +152,8 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Nombre *
+                  <label className="block text-sm font-medium text-white mb-2 font-ui">
+                    NOMBRE *
                   </label>
                   <input
                     type="text"
@@ -167,8 +166,8 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Email *
+                  <label className="block text-sm font-medium text-white mb-2 font-ui">
+                    EMAIL *
                   </label>
                   <input
                     type="email"
@@ -183,8 +182,8 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
-                  Asunto *
+                <label className="block text-sm font-medium text-white mb-2 font-ui">
+                  ASUNTO *
                 </label>
                 <input
                   type="text"
@@ -198,8 +197,8 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
-                  Mensaje *
+                <label className="block text-sm font-medium text-white mb-2 font-ui">
+                  MENSAJE *
                 </label>
                 <textarea
                   name="message"
@@ -216,9 +215,9 @@ const Contact = () => {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full btn-primary py-3"
+                className="w-full btn-primary py-3 font-ui"
               >
-                Enviar Mensaje
+                ENVIAR MENSAJE
                 <svg className="inline-block ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                 </svg>

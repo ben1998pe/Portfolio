@@ -44,10 +44,10 @@ const About = () => {
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="space-y-4">
-          <h1 className="text-4xl lg:text-5xl font-bold">
-            <span className="text-gradient">Sobre Mí</span>
+          <h1 className="text-3xl lg:text-4xl font-title">
+            <span className="text-gradient">SOBRE MÍ</span>
           </h1>
-          <p className="text-lg text-brand-soft max-w-2xl">
+          <p className="text-base text-brand-soft max-w-2xl font-body">
             Ingeniero de Sistemas apasionado por crear soluciones digitales que marcan la diferencia
           </p>
         </motion.div>
@@ -55,22 +55,20 @@ const About = () => {
         {/* Main Content */}
         <motion.div variants={itemVariants} className="space-y-6">
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-white">Mi Historia</h2>
-            <div className="space-y-3 text-brand-soft leading-relaxed">
+            <h2 className="text-xl font-bold text-white font-ui">MI HISTORIA</h2>
+            <div className="space-y-3 text-brand-soft leading-relaxed font-body">
               <p>
-                Con más de 3 años de experiencia en el desarrollo web y la automatización de procesos, 
-                me especializo en crear soluciones que no solo funcionan, sino que superan las expectativas.
+                Con más de 3 años de experiencia en el desarrollo web y la automatización de procesos, me especializo en crear soluciones que no solo funcionan, sino que superan las expectativas.
               </p>
               <p>
-                Mi enfoque combina la precisión técnica con una comprensión profunda de las necesidades 
-                del negocio, resultando en productos que son tanto funcionales como elegantes.
+                Mi enfoque combina la precisión técnica con una comprensión profunda de las necesidades del negocio, resultando en productos que son tanto funcionales como elegantes.
               </p>
             </div>
           </div>
 
           {/* Skills */}
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-white">Habilidades Técnicas</h2>
+            <h2 className="text-xl font-bold text-white font-ui">HABILIDADES TÉCNICAS</h2>
             <div className="space-y-4">
               {skills.map((skill, index) => (
                 <motion.div
@@ -81,8 +79,8 @@ const About = () => {
                   className="space-y-2"
                 >
                   <div className="flex justify-between items-center">
-                    <span className="font-medium text-white">{skill.name}</span>
-                    <span className="text-brand-accent font-semibold">{skill.level}%</span>
+                    <span className="font-medium text-white font-ui">{skill.name.toUpperCase()}</span>
+                    <span className="text-brand-accent font-semibold font-ui">{skill.level}%</span>
                   </div>
                   <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
                     <motion.div
