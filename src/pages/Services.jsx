@@ -75,10 +75,10 @@ const Services = () => {
       >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center space-y-4">
-            <h1 className="text-5xl lg:text-6xl font-bold">
-              <span className="text-gradient">Servicios</span>
+            <h1 className="text-4xl lg:text-5xl font-title">
+              <span className="text-gradient">SERVICIOS</span>
             </h1>
-            <p className="text-xl text-brand-soft max-w-3xl mx-auto">
+            <p className="text-lg text-brand-soft max-w-3xl mx-auto font-body">
               Soluciones digitales completas que impulsan el crecimiento de tu negocio
             </p>
           </motion.div>
@@ -108,17 +108,17 @@ const Services = () => {
                   
                   {/* Content */}
                   <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-white group-hover:text-brand-accent transition-colors">
-                      {service.title}
+                    <h3 className="text-lg font-semibold text-white group-hover:text-brand-accent transition-colors font-ui">
+                      {service.title.toUpperCase()}
                     </h3>
-                    <p className="text-brand-soft/80 text-sm leading-relaxed">
+                    <p className="text-brand-soft/80 text-sm leading-relaxed font-body">
                       {service.description}
                     </p>
                   </div>
 
                   {/* Hover indicator */}
                   <div className="flex items-center text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-sm font-medium">Saber más</span>
+                    <span className="text-sm font-medium font-ui">SABER MÁS</span>
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -137,9 +137,9 @@ const Services = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-accent text-lg px-8 py-4"
+            className="btn-accent text-base px-8 py-4 font-ui"
           >
-            ¿Necesitas algo específico?
+            ¿NECESITAS ALGO ESPECÍFICO?
             <svg className="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>

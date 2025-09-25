@@ -36,13 +36,15 @@ const Home = () => {
       >
         {/* Greeting */}
         <motion.div variants={itemVariants} className="space-y-2">
-          <p className="text-brand-accent font-medium text-lg">¡Hola! Soy</p>
+          <p className="text-brand-accent font-subtitle text-xl">
+            ¡HOLA! SOY
+          </p>
         </motion.div>
 
         {/* Main Headline */}
         <motion.h1 
           variants={itemVariants}
-          className="text-5xl lg:text-7xl font-bold leading-tight"
+          className="text-4xl lg:text-6xl font-title leading-tight"
         >
           <span className="text-gradient">Benjamin</span>
           <br />
@@ -51,12 +53,11 @@ const Home = () => {
 
         {/* Subheadline */}
         <motion.div variants={itemVariants} className="space-y-4">
-          <p className="text-xl lg:text-2xl text-brand-soft leading-relaxed">
-            Ingeniero de Sistemas • Dev Web • SEO • Automatización n8n • Cloud/DevOps
+          <p className="text-lg lg:text-xl text-brand-soft font-ui leading-relaxed">
+            INGENIERO DE SISTEMAS • DEV WEB • SEO • AUTOMATIZACIÓN N8N • CLOUD/DEVOPS
           </p>
-          <p className="text-lg text-brand-soft/80 max-w-2xl">
-            Transformo ideas complejas en soluciones digitales elegantes. 
-            Especializado en desarrollo web, automatización de procesos y arquitecturas cloud.
+          <p className="text-base text-brand-soft/80 max-w-2xl font-body">
+            Transformo ideas complejas en soluciones digitales elegantes. Especializado en desarrollo web, automatización de procesos y arquitecturas cloud.
           </p>
         </motion.div>
 
@@ -69,9 +70,9 @@ const Home = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-primary text-lg px-8 py-4"
+              className="btn-primary text-base px-8 py-4 font-ui"
             >
-              Ver Proyectos
+              VER PROYECTOS
               <svg className="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -82,9 +83,9 @@ const Home = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-secondary text-lg px-8 py-4"
+              className="btn-secondary text-base px-8 py-4 font-ui"
             >
-              Hablemos
+              HABLEMOS
               <svg className="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
@@ -98,16 +99,16 @@ const Home = () => {
           className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10"
         >
           <div className="text-center">
-            <div className="text-3xl font-bold text-brand-accent">50+</div>
-            <div className="text-sm text-brand-soft/80">Proyectos</div>
+            <div className="text-3xl font-bold text-brand-accent font-ui">50+</div>
+            <div className="text-sm text-brand-soft/80 font-ui">PROYECTOS</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-brand-accent">3+</div>
-            <div className="text-sm text-brand-soft/80">Años Exp.</div>
+            <div className="text-3xl font-bold text-brand-accent font-ui">3+</div>
+            <div className="text-sm text-brand-soft/80 font-ui">AÑOS EXP.</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-brand-accent">100%</div>
-            <div className="text-sm text-brand-soft/80">Satisfacción</div>
+            <div className="text-3xl font-bold text-brand-accent font-ui">100%</div>
+            <div className="text-sm text-brand-soft/80 font-ui">SATISFACCIÓN</div>
           </div>
         </motion.div>
       </motion.div>

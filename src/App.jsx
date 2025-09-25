@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Navigation from './components/Navigation'
 import CursorGlow from './components/CursorGlow'
+import PageTransition from './components/PageTransition'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Projects from './pages/Projects'
@@ -39,15 +40,17 @@ function App() {
       <CursorGlow />
       <Navigation />
       
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </AnimatePresence>
+      <PageTransition location={location}>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </AnimatePresence>
+      </PageTransition>
     </div>
   )
 }
