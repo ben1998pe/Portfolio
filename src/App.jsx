@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import Navigation from './components/Navigation'
 import CursorGlow from './components/CursorGlow'
 import PageTransition from './components/PageTransition'
+import ErrorBoundary from './components/ErrorBoundary'
+import { NotificationProvider } from './contexts/NotificationContext'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Projects from './pages/Projects'
@@ -36,22 +38,26 @@ function App() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <CursorGlow />
-      <Navigation />
-      
-      <PageTransition location={location}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </AnimatePresence>
-      </PageTransition>
-    </div>
+    <ErrorBoundary>
+      <NotificationProvider>
+        <div className="relative min-h-screen overflow-hidden">
+          <CursorGlow />
+          <Navigation />
+          
+          <PageTransition location={location}>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </AnimatePresence>
+          </PageTransition>
+        </div>
+      </NotificationProvider>
+    </ErrorBoundary>
   )
 }
 

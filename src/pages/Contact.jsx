@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import PageFrame from '../components/PageFrame'
+import { useNotification } from '../contexts/NotificationContext'
+import useLoading from '../hooks/useLoading'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,9 @@ const Contact = () => {
     subject: '',
     message: ''
   })
+  
+  const { showSuccess, showError, showInfo } = useNotification()
+  const { isLoading, withLoading } = useLoading()
 
   const handleChange = (e) => {
     setFormData({
@@ -17,9 +22,43 @@ const Contact = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
+    
+    // Validación básica
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      showError('Por favor, completa todos los campos requeridos')
+      return
+    }
+
+    // Validación de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      showError('Por favor, ingresa un email válido')
+      return
+    }
+
+    try {
+      await withLoading(async () => {
+        // Simular envío del formulario
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        
+        // Aquí iría la lógica real de envío
+        console.log('Form submitted:', formData)
+        
+        showSuccess('¡Mensaje enviado correctamente! Te contactaré pronto.')
+        
+        // Limpiar formulario
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        })
+      }, 'Enviando mensaje...')
+    } catch (error) {
+      showError('Error al enviar el mensaje. Por favor, inténtalo de nuevo.')
+    }
   }
 
   const contactMethods = [
@@ -211,17 +250,31 @@ const Contact = () => {
                 />
               </div>
 
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full btn-primary py-3 font-ui"
-              >
-                ENVIAR MENSAJE
-                <svg className="inline-block ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </motion.button>
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: isLoading ? 1 : 1.05 }}
+                    whileTap={{ scale: isLoading ? 1 : 0.95 }}
+                    disabled={isLoading}
+                    className={`w-full py-3 font-ui transition-all duration-300 ${
+                      isLoading 
+                        ? 'bg-brand-primary/50 cursor-not-allowed' 
+                        : 'btn-primary'
+                    }`}
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        ENVIANDO...
+                      </div>
+                    ) : (
+                      <>
+                        ENVIAR MENSAJE
+                        <svg className="inline-block ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                      </>
+                    )}
+                  </motion.button>
             </form>
           </motion.div>
         </div>
