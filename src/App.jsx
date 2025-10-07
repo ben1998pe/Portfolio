@@ -9,15 +9,17 @@ import ScrollIndicator from './components/ScrollIndicator'
 import BackToTop from './components/BackToTop'
 import FloatingParticles from './components/FloatingParticles'
 import { NotificationProvider } from './contexts/NotificationContext'
+import { ThemeProvider, useTheme } from './contexts/ThemeContext'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
 
-function App() {
+const AppContent = () => {
   const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
+  const { particlesEnabled } = useTheme()
 
   useEffect(() => {
     // Simular carga inicial
@@ -41,28 +43,36 @@ function App() {
   }
 
   return (
+    <div className="relative min-h-screen overflow-hidden">
+      {particlesEnabled && <FloatingParticles count={15} />}
+      <ScrollIndicator />
+      <CursorGlow />
+      <Navigation />
+      <BackToTop />
+      
+      <PageTransition location={location}>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </AnimatePresence>
+      </PageTransition>
+    </div>
+  )
+}
+
+function App() {
+  return (
     <ErrorBoundary>
-      <NotificationProvider>
-        <div className="relative min-h-screen overflow-hidden">
-          <FloatingParticles count={15} />
-          <ScrollIndicator />
-          <CursorGlow />
-          <Navigation />
-          <BackToTop />
-          
-          <PageTransition location={location}>
-            <AnimatePresence mode="wait">
-              <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<Home />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-            </AnimatePresence>
-          </PageTransition>
-        </div>
-      </NotificationProvider>
+      <ThemeProvider>
+        <NotificationProvider>
+          <AppContent />
+        </NotificationProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   )
 }
