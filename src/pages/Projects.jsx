@@ -190,20 +190,26 @@ const Projects = () => {
               <p className="text-base text-brand-soft max-w-2xl mx-auto font-body">
                 Una selección de mis trabajos más destacados y proyectos en desarrollo
               </p>
+              <div className="text-sm text-brand-accent font-ui">
+                {sortedProjects.length} {sortedProjects.length === 1 ? 'proyecto' : 'proyectos'} 
+                {filter !== 'all' && ` en ${filter === 'featured' ? 'destacados' : filter}`}
+              </div>
               
               {/* Filtros y Ordenamiento */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
                 {/* Filtros por categoría */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar proyectos por categoría">
                   {categories.map((category) => (
                     <button
                       key={category}
                       onClick={() => setFilter(category)}
-                      className={`px-4 py-2 rounded-xl text-sm font-ui transition-all duration-300 ${
+                      className={`px-4 py-2 rounded-xl text-sm font-ui transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-ink ${
                         filter === category
                           ? 'bg-brand-primary text-white'
                           : 'bg-white/10 text-brand-soft hover:bg-white/20'
                       }`}
+                      aria-pressed={filter === category}
+                      aria-label={`Filtrar por ${category === 'all' ? 'todos los proyectos' : category}`}
                     >
                       {category === 'all' ? 'TODOS' : category.toUpperCase()}
                     </button>
@@ -212,11 +218,13 @@ const Projects = () => {
                 
                 {/* Ordenamiento */}
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-brand-soft font-ui">ORDENAR:</span>
+                  <label htmlFor="sort-select" className="text-sm text-brand-soft font-ui">ORDENAR:</label>
                   <select
+                    id="sort-select"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="px-3 py-2 bg-white/10 border border-white/20 rounded-xl text-white text-sm font-ui focus:outline-none focus:border-brand-primary"
+                    className="px-3 py-2 bg-white/10 border border-white/20 rounded-xl text-white text-sm font-ui focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-accent"
+                    aria-label="Ordenar proyectos"
                   >
                     <option value="recent">MÁS RECIENTES</option>
                     <option value="name">NOMBRE</option>
@@ -231,7 +239,28 @@ const Projects = () => {
             variants={containerVariants}
             className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-hidden"
           >
-            {sortedProjects.map((project) => (
+            {sortedProjects.length === 0 ? (
+              <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
+                  <svg className="w-8 h-8 text-brand-soft" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.709M15 6.291A7.962 7.962 0 0012 5c-2.34 0-4.29 1.009-5.824 2.709" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-white font-ui mb-2">
+                  NO HAY PROYECTOS
+                </h3>
+                <p className="text-brand-soft font-body mb-4">
+                  No se encontraron proyectos que coincidan con el filtro seleccionado.
+                </p>
+                <button
+                  onClick={() => setFilter('all')}
+                  className="btn-primary text-sm px-4 py-2"
+                >
+                  VER TODOS LOS PROYECTOS
+                </button>
+              </div>
+            ) : (
+              sortedProjects.map((project) => (
               <motion.div
                 key={project.id}
                 variants={itemVariants}
@@ -242,7 +271,16 @@ const Projects = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedProject(project)}
-                className="group cursor-pointer"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setSelectedProject(project)
+                  }
+                }}
+                className="group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-brand-ink rounded-2xl"
+                tabIndex={0}
+                role="button"
+                aria-label={`Ver detalles del proyecto ${project.title}`}
               >
                     <div className="glass rounded-2xl p-4 h-full hover-lift border border-white/10 group-hover:border-brand-primary/30 transition-all duration-300 flex flex-col">
                       <div className="flex-1 space-y-3">
@@ -316,7 +354,8 @@ const Projects = () => {
                   </div>
                 </div>
               </motion.div>
-            ))}
+              ))
+            )}
           </motion.div>
         </motion.div>
       </PageFrame>

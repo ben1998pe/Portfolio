@@ -5,6 +5,9 @@ import Navigation from './components/Navigation'
 import CursorGlow from './components/CursorGlow'
 import PageTransition from './components/PageTransition'
 import ErrorBoundary from './components/ErrorBoundary'
+import ScrollIndicator from './components/ScrollIndicator'
+import BackToTop from './components/BackToTop'
+import FloatingParticles from './components/FloatingParticles'
 import { NotificationProvider } from './contexts/NotificationContext'
 import Home from './pages/Home'
 import Services from './pages/Services'
@@ -41,8 +44,11 @@ function App() {
     <ErrorBoundary>
       <NotificationProvider>
         <div className="relative min-h-screen overflow-hidden">
+          <FloatingParticles count={15} />
+          <ScrollIndicator />
           <CursorGlow />
           <Navigation />
+          <BackToTop />
           
           <PageTransition location={location}>
             <AnimatePresence mode="wait">
