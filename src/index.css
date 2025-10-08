@@ -62,6 +62,81 @@ html, body {
   color: rgba(100, 116, 139, 0.6);
 }
 
+/* Adaptar textos blancos en modo claro */
+[data-theme="light"] .text-white:not(.btn-primary *):not(.bg-brand-primary *):not(.bg-gradient-to-br *):not(button[class*="bg-red-"] *):not(.bg-red-500 *) {
+  color: #1e293b !important;
+}
+
+/* Ajustar selects en modo claro */
+[data-theme="light"] select {
+  color: #1e293b !important;
+  background-color: rgba(241, 245, 249, 0.9) !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+[data-theme="light"] select option {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+/* Adaptar SVGs y elementos gráficos en modo claro */
+[data-theme="light"] svg {
+  color: inherit;
+}
+
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .glass-strong {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .hover-lift:hover {
+  box-shadow: 0 20px 40px rgba(85, 52, 254, 0.15);
+}
+
+/* Mejorar contraste de badges y etiquetas */
+[data-theme="light"] .bg-white\/10 {
+  background-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+[data-theme="light"] .bg-white\/20 {
+  background-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+[data-theme="light"] .border-white\/10 {
+  border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+[data-theme="light"] .border-white\/20 {
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+/* Ajustar fondos de modales y overlays en modo claro */
+[data-theme="light"] .bg-brand-ink {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-brand-ink\/95 {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+}
+
+[data-theme="light"] .bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="light"] .bg-black\/80 {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ajustar borders en modo claro */
+[data-theme="light"] .border-l {
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
 #root {
   height: 100vh;
   width: 100vw;
