@@ -1,11 +1,31 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PageFrame from '../components/PageFrame'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
   const [filter, setFilter] = useState('all')
   const [sortBy, setSortBy] = useState('recent')
+
+  // Cerrar modal con ESC y gestionar focus
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && selectedProject) {
+        setSelectedProject(null)
+      }
+    }
+
+    if (selectedProject) {
+      document.addEventListener('keydown', handleEscape)
+      // Prevenir scroll del body cuando el modal está abierto
+      document.body.style.overflow = 'hidden'
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedProject])
 
   const projects = [
     {
@@ -381,6 +401,9 @@ const Projects = () => {
               exit="exit"
               onClick={(e) => e.stopPropagation()}
               className="relative w-full h-screen max-w-7xl mx-auto flex"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
             >
               {/* Left side - Project Details */}
               <div className="flex-1 flex flex-col justify-center px-8 lg:px-16 xl:px-24 pt-24 pb-8">
@@ -393,9 +416,11 @@ const Projects = () => {
                   {/* Close button */}
                   <button
                     onClick={() => setSelectedProject(null)}
-                    className="absolute top-8 right-8 w-10 h-10 rounded-full glass-strong flex items-center justify-center hover:scale-110 transition-transform"
+                    className="absolute top-8 right-8 w-10 h-10 rounded-full glass-strong flex items-center justify-center hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-brand-accent"
+                    aria-label="Cerrar modal de proyecto"
+                    title="Cerrar (ESC)"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -411,7 +436,7 @@ const Projects = () => {
                             <div className="text-sm text-brand-soft font-ui">{selectedProject.category}</div>
                           </div>
                         </div>
-                        <h2 className="text-4xl lg:text-5xl font-bold text-gradient font-title">
+                        <h2 id="modal-title" className="text-4xl lg:text-5xl font-bold text-gradient font-title">
                           {selectedProject.title}
                         </h2>
                         <p className="text-xl text-brand-soft font-body">
