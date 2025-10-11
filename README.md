@@ -1,6 +1,34 @@
+<div align="center">
+
 # 🚀 BOSCCOA - Portfolio Personal
 
+[![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-4.5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.3.5-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.16.16-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+
 Un portafolio moderno y elegante construido con React, Vite y Framer Motion, diseñado para mostrar proyectos de desarrollo web, automatización y DevOps.
+
+[Demo en vivo](#) · [Reportar Bug](https://github.com/ben1998pe/Portfolio/issues) · [Solicitar Feature](https://github.com/ben1998pe/Portfolio/issues)
+
+</div>
+
+---
+
+## 📋 Tabla de Contenidos
+
+- [Características](#-características)
+- [Instalación y Uso](#-instalación-y-uso)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Sistema de Diseño](#-sistema-de-diseño)
+- [Configuración](#-configuración)
+- [Despliegue](#-despliegue)
+- [Contribuciones](#-contribuciones)
+- [Licencia](#-licencia)
+- [Autor](#-autor)
+
+---
 
 ## ✨ Características
 
@@ -19,14 +47,25 @@ Un portafolio moderno y elegante construido con React, Vite y Framer Motion, dis
 - **React Router v6** para navegación
 - **Context API** para manejo de estado global
 
-### 🎯 Funcionalidades
-- **Sistema de Filtros**: Filtra proyectos por categoría y estado
-- **Ordenamiento**: Ordena por fecha, nombre o estado
-- **Modal de Detalles**: Vista expandida de proyectos
-- **Sistema de Notificaciones**: Toast notifications elegantes
-- **Error Boundary**: Manejo robusto de errores
-- **Loading States**: Estados de carga con skeleton loaders
-- **Validación de Formularios**: Validación en tiempo real
+#### 🎯 Funcionalidades
+- **Sistema de Filtros**: Filtra proyectos por categoría, destacados y estado
+- **Ordenamiento Inteligente**: Ordena por fecha, nombre o estado
+- **Modal de Detalles**: Vista expandida de proyectos con animaciones
+- **Sistema de Notificaciones**: Toast notifications elegantes y no intrusivas
+- **Error Boundary**: Manejo robusto de errores en toda la aplicación
+- **Loading States**: Estados de carga con skeleton loaders suaves
+- **Validación de Formularios**: Validación en tiempo real del formulario de contacto
+- **Separación de Datos**: Arquitectura modular con datos separados de la lógica
+- **Constantes Centralizadas**: Configuración en un solo lugar para fácil mantenimiento
+- **Accesibilidad**: Navegación por teclado, ARIA labels y roles semánticos
+
+### 📊 Estadísticas del Proyecto
+- **🔧 Componentes**: 20+ componentes reutilizables
+- **📄 Páginas**: 5 páginas principales (Home, About, Projects, Services, Contact)
+- **🎨 Animaciones**: Powered by Framer Motion
+- **♿ Accesibilidad**: WCAG 2.1 compliance
+- **📱 Responsive**: Mobile-first design
+- **⚡ Performance**: Optimizado con Vite
 
 ## 🚀 Instalación y Uso
 
@@ -60,31 +99,50 @@ npm run lint         # Linter
 ## 📁 Estructura del Proyecto
 
 ```
-src/
-├── components/          # Componentes reutilizables
-│   ├── CursorGlow.jsx
-│   ├── ErrorBoundary.jsx
-│   ├── LoadingSkeleton.jsx
-│   ├── Navigation.jsx
-│   ├── PageFrame.jsx
-│   ├── PageTransition.jsx
-│   ├── PixelTransition.jsx
-│   ├── Shuffle.jsx
-│   └── Toast.jsx
-├── contexts/           # Contextos de React
-│   └── NotificationContext.jsx
-├── hooks/             # Hooks personalizados
-│   ├── useDustEffect.js
-│   └── useLoading.js
-├── pages/             # Páginas principales
-│   ├── About.jsx
-│   ├── Contact.jsx
-│   ├── Home.jsx
-│   ├── Projects.jsx
-│   └── Services.jsx
-├── App.jsx            # Componente principal
-├── index.css          # Estilos globales
-└── main.jsx           # Punto de entrada
+📦 portafolio/
+├── 📂 src/
+│   ├── 📂 components/       # 🧩 Componentes reutilizables
+│   │   ├── AutoDustWrapper.jsx
+│   │   ├── BackToTop.jsx
+│   │   ├── CursorGlow.jsx
+│   │   ├── DustElement.jsx
+│   │   ├── ElementDuster.jsx
+│   │   ├── ErrorBoundary.jsx
+│   │   ├── FloatingParticles.jsx
+│   │   ├── LoadingSkeleton.jsx
+│   │   ├── Navigation.jsx
+│   │   ├── PageFrame.jsx
+│   │   ├── PageTransition.jsx
+│   │   ├── PixelTransition.jsx
+│   │   ├── ScrollIndicator.jsx
+│   │   ├── SettingsPanel.jsx
+│   │   ├── Shuffle.jsx
+│   │   └── Toast.jsx
+│   ├── 📂 contexts/        # 🔄 Contextos de React
+│   │   ├── NotificationContext.jsx
+│   │   └── ThemeContext.jsx
+│   ├── 📂 data/            # 📊 Datos y configuración
+│   │   └── projects.js
+│   ├── 📂 hooks/           # 🎣 Hooks personalizados
+│   │   ├── useDustEffect.js
+│   │   └── useLoading.js
+│   ├── 📂 pages/           # 📄 Páginas principales
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Home.jsx
+│   │   ├── Projects.jsx
+│   │   └── Services.jsx
+│   ├── 📂 utils/           # 🛠️ Utilidades
+│   │   └── constants.js
+│   ├── App.jsx             # 🎯 Componente principal
+│   ├── index.css           # 🎨 Estilos globales
+│   └── main.jsx            # 🚀 Punto de entrada
+├── 📂 public/              # 🌐 Recursos públicos
+├── 📄 index.html           # 📝 HTML principal
+├── 📄 package.json         # 📦 Dependencias
+├── 📄 vite.config.js       # ⚡ Configuración Vite
+├── 📄 tailwind.config.js   # 🎨 Configuración Tailwind
+└── 📄 README.md            # 📖 Documentación
 ```
 
 ## 🎨 Sistema de Diseño
@@ -119,7 +177,8 @@ VITE_APP_DESCRIPTION=Portfolio personal de Benjamin Oscco Arias
 1. **Colores**: Modifica la paleta en `tailwind.config.js`
 2. **Fuentes**: Cambia las fuentes en `src/index.css`
 3. **Contenido**: Actualiza los datos en cada página
-4. **Proyectos**: Modifica el array de proyectos en `Projects.jsx`
+4. **Proyectos**: Modifica el array de proyectos en `src/data/projects.js`
+5. **Constantes**: Actualiza configuraciones en `src/utils/constants.js`
 
 ## 📱 Responsive Design
 
