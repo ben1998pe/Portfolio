@@ -125,7 +125,10 @@ npm run lint         # Linter
 │   │   └── projects.js
 │   ├── 📂 hooks/           # 🎣 Hooks personalizados
 │   │   ├── useDustEffect.js
-│   │   └── useLoading.js
+│   │   ├── useLoading.js
+│   │   ├── useScrollPosition.js
+│   │   ├── useMediaQuery.js
+│   │   └── useLocalStorage.js
 │   ├── 📂 pages/           # 📄 Páginas principales
 │   │   ├── About.jsx
 │   │   ├── Contact.jsx
@@ -133,7 +136,8 @@ npm run lint         # Linter
 │   │   ├── Projects.jsx
 │   │   └── Services.jsx
 │   ├── 📂 utils/           # 🛠️ Utilidades
-│   │   └── constants.js
+│   │   ├── constants.js
+│   │   └── helpers.js
 │   ├── App.jsx             # 🎯 Componente principal
 │   ├── index.css           # 🎨 Estilos globales
 │   └── main.jsx            # 🚀 Punto de entrada
