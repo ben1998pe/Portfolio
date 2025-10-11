@@ -5,6 +5,31 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.1.1] - 2024-10-11
+
+### ✨ Agregado
+- **`.editorconfig`**: Archivo de configuración para mantener consistencia de código entre diferentes editores
+- **`src/utils/helpers.js`**: Utilidades y funciones helper reutilizables:
+  - `formatYear()` - Formateo de años
+  - `truncateText()` - Truncar texto
+  - `capitalizeWords()` - Capitalizar palabras
+  - `generateId()` - Generar IDs únicos
+  - `isValidUrl()` - Validar URLs
+  - `copyToClipboard()` - Copiar al portapapeles
+  - `debounce()` - Optimizar llamadas a funciones
+  - `formatNumber()` - Formatear números
+  - `timeAgo()` - Calcular tiempo transcurrido
+  - `getRandomColor()` - Obtener colores aleatorios
+  - `isMobile()` - Detectar dispositivos móviles
+  - `smoothScrollTo()` - Scroll suave
+
+### 🔄 Modificado
+- **`package.json`**: 
+  - Actualizada versión a 1.1.0
+  - Agregados metadatos del autor
+  - Agregados keywords para mejor SEO
+  - Nuevos scripts útiles: `lint:fix`, `format`, `clean`
+
 ## [1.1.0] - 2024-10-11
 
 ### ✨ Agregado

@@ -1,13 +1,30 @@
 {
   "name": "portafolio-ultra-premium",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.0",
   "type": "module",
+  "author": {
+    "name": "Benjamin Oscco Arias",
+    "email": "benjamin@bosccoa.com",
+    "url": "https://github.com/benjaminoscco"
+  },
+  "description": "Portfolio personal moderno con React, Vite y Framer Motion",
+  "keywords": [
+    "portfolio",
+    "react",
+    "vite",
+    "tailwindcss",
+    "framer-motion",
+    "glassmorphism"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,md}\"",
+    "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
     "framer-motion": "^10.16.16",
