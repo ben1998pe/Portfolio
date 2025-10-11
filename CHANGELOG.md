@@ -22,6 +22,10 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
   - `getRandomColor()` - Obtener colores aleatorios
   - `isMobile()` - Detectar dispositivos móviles
   - `smoothScrollTo()` - Scroll suave
+- **Hooks personalizados adicionales**:
+  - `useScrollPosition.js` - Hook para rastrear posición y dirección del scroll
+  - `useMediaQuery.js` - Hook para detectar media queries y responsive breakpoints
+  - `useLocalStorage.js` - Hook para manejar localStorage con sincronización automática
 
 ### 🔄 Modificado
 - **`package.json`**: 
