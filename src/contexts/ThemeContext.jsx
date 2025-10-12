@@ -40,6 +40,13 @@ export const ThemeProvider = ({ children }) => {
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
     
+    // Aplicar clase dark para Tailwind
+    if (theme === 'dark') {
+      root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
+    }
+    
     // Actualizar meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]')
     if (metaThemeColor) {

@@ -1,36 +1,27 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import useLocalStorage from '../hooks/useLocalStorage'
+import { useTheme } from '../contexts/ThemeContext'
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark, removeTheme] = useLocalStorage('theme', true)
+  const { theme, toggleTheme } = useTheme()
   const [isAnimating, setIsAnimating] = useState(false)
   const [mounted, setMounted] = useState(false)
+  
+  const isDark = theme === 'dark'
 
   // Evitar hidratación incorrecta
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Aplicar tema al DOM
-  useEffect(() => {
-    if (!mounted) return
-
-    const root = document.documentElement
-    if (isDark) {
-      root.classList.add('dark')
-    } else {
-      root.classList.remove('dark')
-    }
-  }, [isDark, mounted])
-
-  const toggleTheme = async () => {
+  const handleToggle = async () => {
     setIsAnimating(true)
     
     // Pequeño delay para la animación
     await new Promise(resolve => setTimeout(resolve, 150))
     
-    setIsDark(!isDark)
+    // Usar la función del contexto
+    toggleTheme()
     
     // Reset animation state
     setTimeout(() => setIsAnimating(false), 300)
@@ -78,7 +69,7 @@ const ThemeToggle = () => {
 
       {/* Toggle Switch */}
       <motion.button
-        onClick={toggleTheme}
+        onClick={handleToggle}
         disabled={isAnimating}
         className={`
           relative w-12 h-6 rounded-full transition-all duration-300 ease-in-out

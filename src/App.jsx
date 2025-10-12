@@ -21,8 +21,9 @@ import Contact from './pages/Contact'
 const AppContent = () => {
   const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
-  const { particlesEnabled } = useTheme()
-  const [isDark, setIsDark] = useLocalStorage('theme', true)
+  const { particlesEnabled, theme } = useTheme()
+  
+  const isDark = theme === 'dark'
 
   useEffect(() => {
     // Simular carga inicial
