@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import SettingsPanel from './SettingsPanel'
+import ThemeToggle from './ThemeToggle'
 
 const Navigation = () => {
   const location = useLocation()
@@ -70,6 +71,9 @@ const Navigation = () => {
 
               {/* Settings and Mobile menu buttons */}
               <div className="flex items-center gap-2">
+                {/* Theme Toggle */}
+                <ThemeToggle />
+
                 {/* Settings button */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}

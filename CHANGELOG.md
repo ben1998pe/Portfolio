@@ -5,7 +5,28 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
-## [1.1.1] - 2024-10-11
+## [1.2.0] - 2024-10-11
+
+### ✨ Agregado
+- **Sistema de Tema Avanzado**: 
+  - Toggle animado con iconos de sol/luna
+  - Persistencia automática en localStorage
+  - Transiciones suaves entre temas
+  - Efectos visuales mejorados
+- **Animaciones de Partículas Interactivas**:
+  - Partículas que siguen el cursor
+  - Efectos de burst al hacer clic
+  - Colores adaptativos según el tema
+  - Optimización de rendimiento
+- **Botones Mejorados (EnhancedButton)**:
+  - Múltiples variantes (primary, secondary, ghost, danger)
+  - Estados de loading con spinner
+  - Efectos ripple y shine
+  - Micro-interacciones suaves
+- **Integración en Navegación**:
+  - ThemeToggle integrado en la navbar
+  - Sincronización automática con el tema
+  - Animaciones coherentes
 
 ### 🐛 Corregido
 - **Contraste en modal**: Mejorado contraste de textos en el modal de proyectos para tema claro

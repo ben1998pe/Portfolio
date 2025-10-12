@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Navigation from './components/Navigation'
 import CursorGlow from './components/CursorGlow'
+import AnimatedParticles from './components/AnimatedParticles'
 import PageTransition from './components/PageTransition'
 import ErrorBoundary from './components/ErrorBoundary'
 import ScrollIndicator from './components/ScrollIndicator'
@@ -10,6 +11,7 @@ import BackToTop from './components/BackToTop'
 import FloatingParticles from './components/FloatingParticles'
 import { NotificationProvider } from './contexts/NotificationContext'
 import { ThemeProvider, useTheme } from './contexts/ThemeContext'
+import useLocalStorage from './hooks/useLocalStorage'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Projects from './pages/Projects'
@@ -20,6 +22,7 @@ const AppContent = () => {
   const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
   const { particlesEnabled } = useTheme()
+  const [isDark, setIsDark] = useLocalStorage('theme', true)
 
   useEffect(() => {
     // Simular carga inicial
@@ -45,6 +48,7 @@ const AppContent = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {particlesEnabled && <FloatingParticles count={15} />}
+      <AnimatedParticles isDark={isDark} />
       <ScrollIndicator />
       <CursorGlow />
       <Navigation />
