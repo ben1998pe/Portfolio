@@ -7,6 +7,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [1.1.1] - 2024-10-11
 
+### 🐛 Corregido
+- **Contraste en modal**: Mejorado contraste de textos en el modal de proyectos para tema claro
+  - Textos de tecnologías ahora usan colores apropiados para tema claro/oscuro
+  - Estados de proyecto (Completado/En desarrollo) con mejor contraste
+  - Etiquetas "PROYECTO DESTACADO" visibles en ambos temas
+  - Placeholder 3D con textos legibles en tema claro
+
 ### ✨ Agregado
 - **`.editorconfig`**: Archivo de configuración para mantener consistencia de código entre diferentes editores
 - **`src/utils/helpers.js`**: Utilidades y funciones helper reutilizables:

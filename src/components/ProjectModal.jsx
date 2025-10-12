@@ -52,30 +52,30 @@ const ProjectModal = ({ project, onClose, modalVariants }) => {
                   {project.image}
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-brand-accent font-ui">{project.year}</div>
-                  <div className="text-sm text-brand-soft font-ui">{project.category}</div>
+                  <div className="text-2xl font-bold text-brand-primary dark:text-brand-accent font-ui">{project.year}</div>
+                  <div className="text-sm text-gray-600 dark:text-brand-soft font-ui">{project.category}</div>
                 </div>
               </div>
               <h2 id="modal-title" className="text-4xl lg:text-5xl font-bold text-gradient font-title">
                 {project.title}
               </h2>
-              <p className="text-xl text-brand-soft font-body">
+              <p className="text-xl text-gray-600 dark:text-brand-soft font-body">
                 {project.description}
               </p>
-              <p className="text-base text-brand-soft/80 font-body leading-relaxed">
+              <p className="text-base text-gray-500 dark:text-brand-soft/80 font-body leading-relaxed">
                 {project.longDescription}
               </p>
             </div>
 
             {/* Tech Stack */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Tecnologías utilizadas</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Tecnologías utilizadas</h3>
               <div className="flex flex-wrap gap-3">
                 {project.tech.map((tech, index) => (
-                  <span 
-                    key={index}
-                    className="px-4 py-2 bg-brand-primary/20 text-brand-accent rounded-xl font-medium"
-                  >
+                        <span 
+                          key={index}
+                          className="px-4 py-2 bg-brand-primary/20 text-brand-primary dark:text-brand-accent rounded-xl font-medium"
+                        >
                     {tech}
                   </span>
                 ))}
@@ -87,13 +87,13 @@ const ProjectModal = ({ project, onClose, modalVariants }) => {
               <div className="flex items-center gap-4">
                 <span className={`px-4 py-2 rounded-xl text-sm font-medium ${
                   project.status === 'Completado' 
-                    ? 'bg-green-500/20 text-green-400' 
-                    : 'bg-yellow-500/20 text-yellow-400'
+                    ? 'bg-green-500/20 text-green-600 dark:text-green-400' 
+                    : 'bg-yellow-500/20 text-yellow-600 dark:text-yellow-400'
                 }`}>
                   {project.status}
                 </span>
                 {project.featured && (
-                  <span className="px-4 py-2 rounded-xl text-sm font-medium bg-brand-primary/20 text-brand-accent">
+                  <span className="px-4 py-2 rounded-xl text-sm font-medium bg-brand-primary/20 text-brand-primary dark:text-brand-accent">
                     PROYECTO DESTACADO
                   </span>
                 )}
@@ -142,14 +142,14 @@ const ProjectModal = ({ project, onClose, modalVariants }) => {
               id="three-project"
               className="w-full h-full rounded-2xl glass-strong border border-brand-primary/20 flex items-center justify-center"
             >
-              <div className="text-center text-brand-soft/60">
+              <div className="text-center text-gray-600 dark:text-brand-soft/60">
                 <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 flex items-center justify-center">
                   <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                   </svg>
                 </div>
-                <p className="text-lg font-medium">3D Project Visualization</p>
-                <p className="text-sm opacity-60">Ready for Three.js integration</p>
+                <p className="text-lg font-medium text-gray-800 dark:text-white">3D Project Visualization</p>
+                <p className="text-sm opacity-60 text-gray-600 dark:text-gray-400">Ready for Three.js integration</p>
               </div>
             </div>
           </motion.div>
