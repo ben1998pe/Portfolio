@@ -5,6 +5,19 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.2.1] - 2024-10-11
+
+### ✨ Agregado
+- **Indicador de Scroll Mejorado**:
+  - Barra de progreso animada con gradientes
+  - Porcentaje de scroll en tiempo real
+  - Puntos de progreso laterales con animaciones
+  - Efecto de brillo que se mueve con el scroll
+  - Indicador de sección actual
+  - Componente ScrollStats con estadísticas detalladas
+  - Panel flotante con métricas de lectura
+  - Mensajes motivacionales según el progreso
+
 ## [1.2.0] - 2024-10-11
 
 ### ✨ Agregado

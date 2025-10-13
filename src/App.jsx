@@ -7,6 +7,8 @@ import AnimatedParticles from './components/AnimatedParticles'
 import PageTransition from './components/PageTransition'
 import ErrorBoundary from './components/ErrorBoundary'
 import ScrollIndicator from './components/ScrollIndicator'
+import EnhancedScrollIndicator from './components/EnhancedScrollIndicator'
+import ScrollStats from './components/ScrollStats'
 import BackToTop from './components/BackToTop'
 import FloatingParticles from './components/FloatingParticles'
 import { NotificationProvider } from './contexts/NotificationContext'
@@ -50,7 +52,8 @@ const AppContent = () => {
     <div className="relative min-h-screen overflow-hidden">
       {particlesEnabled && <FloatingParticles count={15} />}
       <AnimatedParticles isDark={isDark} />
-      <ScrollIndicator />
+      <EnhancedScrollIndicator />
+      <ScrollStats />
       <CursorGlow />
       <Navigation />
       <BackToTop />
