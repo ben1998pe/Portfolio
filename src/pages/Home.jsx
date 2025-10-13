@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageFrame from '../components/PageFrame'
+import Footer from '../components/Footer'
 
 const Home = () => {
   const containerVariants = {
@@ -112,6 +113,8 @@ const Home = () => {
           </div>
         </motion.div>
       </motion.div>
+      
+      <Footer />
     </PageFrame>
   )
 }

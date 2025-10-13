@@ -5,6 +5,29 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.2.2] - 2024-10-11
+
+### ✨ Agregado
+- **Componente de Redes Sociales (SocialLinks)**:
+  - Iconos animados para GitHub, LinkedIn, Email, Twitter
+  - Múltiples variantes (default, vertical, horizontal, grid)
+  - Efectos hover con rotación y escala
+  - Tooltips opcionales con labels
+  - Efectos de brillo y pulso en hover
+  - Colores específicos para cada red social
+  - Soporte para diferentes tamaños (sm, md, lg)
+- **Footer Completo**:
+  - Información de marca y descripción
+  - Enlaces de navegación rápidos
+  - Sección de contacto con email
+  - Integración de redes sociales
+  - Año actualizado dinámicamente
+  - Animaciones de entrada escalonadas
+  - Elementos flotantes decorativos
+- **Integración en Navegación**:
+  - Redes sociales en navbar (desktop)
+  - Acceso rápido a perfiles sociales
+
 ## [1.2.1] - 2024-10-11
 
 ### ✨ Agregado

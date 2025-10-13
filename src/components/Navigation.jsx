@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import SettingsPanel from './SettingsPanel'
 import ThemeToggle from './ThemeToggle'
+import SocialLinks from './SocialLinks'
 
 const Navigation = () => {
   const location = useLocation()
@@ -71,6 +72,11 @@ const Navigation = () => {
 
               {/* Settings and Mobile menu buttons */}
               <div className="flex items-center gap-2">
+                {/* Social Links (hidden on mobile) */}
+                <div className="hidden lg:block">
+                  <SocialLinks variant="horizontal" size="sm" showLabels={false} />
+                </div>
+
                 {/* Theme Toggle */}
                 <ThemeToggle />
 

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import PageFrame from '../components/PageFrame'
+import Footer from '../components/Footer'
 
 const About = () => {
   const skills = [
@@ -96,6 +97,8 @@ const About = () => {
           </div>
         </motion.div>
       </motion.div>
+      
+      <Footer />
     </PageFrame>
   )
 }
