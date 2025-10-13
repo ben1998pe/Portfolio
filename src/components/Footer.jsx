@@ -38,34 +38,33 @@ const Footer = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      className="relative mt-20 border-t border-white/10"
+      className="relative mt-8 border-t border-white/10"
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-brand-primary/5 to-transparent" />
       
-      <div className="relative max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="relative max-w-7xl mx-auto px-6 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* Brand Section */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center">
-                <span className="text-white font-bold text-lg">B</span>
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center">
+                <span className="text-white font-bold text-sm">B</span>
               </div>
-              <h3 className="text-xl font-bold text-gradient font-title">BOSCCOA</h3>
+              <h3 className="text-lg font-bold text-gradient font-title">BOSCCOA</h3>
             </div>
-            <p className="text-brand-soft/80 text-sm leading-relaxed">
-              Desarrollador Full Stack especializado en React, Node.js y automatización. 
-              Creando soluciones digitales innovadoras y experiencias de usuario excepcionales.
+            <p className="text-brand-soft/80 text-xs leading-relaxed">
+              Desarrollador Full Stack especializado en React, Node.js y automatización.
             </p>
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider">
+          <motion.div variants={itemVariants} className="space-y-3">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-wider">
               Enlaces Rápidos
             </h4>
-            <nav className="space-y-2">
+            <nav className="grid grid-cols-2 gap-1">
               {[
                 { name: 'Inicio', href: '/' },
                 { name: 'Sobre Mí', href: '/about' },
@@ -76,7 +75,7 @@ const Footer = () => {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="block text-brand-soft/70 hover:text-brand-accent transition-colors text-sm"
+                  className="block text-brand-soft/70 hover:text-brand-accent transition-colors text-xs"
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.2 }}
                 >
@@ -87,22 +86,19 @@ const Footer = () => {
           </motion.div>
 
           {/* Contact & Social */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider">
+          <motion.div variants={itemVariants} className="space-y-3">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-wider">
               Conecta Conmigo
             </h4>
-            <div className="space-y-3">
-              <div className="text-brand-soft/70 text-sm">
-                <p className="font-medium text-white mb-1">Benjamin Oscco Arias</p>
+            <div className="space-y-2">
+              <div className="text-brand-soft/70 text-xs">
+                <p className="font-medium text-white">Benjamin Oscco Arias</p>
                 <p>benjamin@bosccoa.com</p>
-                <p className="text-xs text-brand-soft/60 mt-1">
-                  Disponible para proyectos freelance
-                </p>
               </div>
               
               {/* Social Links */}
               <div>
-                <p className="text-brand-soft/70 text-xs mb-2">Sígueme en:</p>
+                <p className="text-brand-soft/70 text-xs mb-2">Sígueme:</p>
                 <SocialLinks variant="horizontal" size="sm" showLabels={false} />
               </div>
             </div>
@@ -112,17 +108,17 @@ const Footer = () => {
         {/* Bottom Section */}
         <motion.div 
           variants={itemVariants}
-          className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
+          className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3"
         >
           <div className="text-brand-soft/60 text-sm">
             © {currentYear} Benjamin Oscco Arias. Todos los derechos reservados.
           </div>
           
-          <div className="flex items-center gap-6 text-xs text-brand-soft/60">
-            <span>Hecho con ❤️ usando React + Vite</span>
+          <div className="flex items-center gap-4 text-xs text-brand-soft/60">
+            <span>Hecho con ❤️</span>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span>Disponible para trabajar</span>
+              <span>Disponible</span>
             </div>
           </div>
         </motion.div>
