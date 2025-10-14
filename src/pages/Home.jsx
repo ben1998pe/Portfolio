@@ -5,15 +5,20 @@ import ScrollProgress from '../components/ScrollProgress'
 import EnhancedParticles from '../components/EnhancedParticles'
 import EnhancedCursor from '../components/EnhancedCursor'
 import FloatingActionButton from '../components/FloatingActionButton'
+import TypingAnimation from '../components/TypingAnimation'
+import ToastContainer from '../components/ToastContainer'
+import useToast from '../hooks/useToast'
 import { projectsData } from '../data/projects'
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [showWelcome, setShowWelcome] = useState(false)
   const heroRef = useRef(null)
   const servicesRef = useRef(null)
   const projectsRef = useRef(null)
   const aboutRef = useRef(null)
   const contactRef = useRef(null)
+  const { toasts, removeToast, showSuccess, showInfo } = useToast()
 
   // Scroll progress para cada sección
   const { scrollYProgress: heroProgress } = useScroll({
@@ -60,6 +65,31 @@ const Home = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
+  // Welcome notification
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcome(true)
+      showSuccess('¡Bienvenido a mi portafolio! 🚀', 4000)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [showSuccess])
+
+  // Info notification when scrolling
+  useEffect(() => {
+    let hasShownScrollInfo = false
+    
+    const handleScroll = () => {
+      if (window.scrollY > 100 && !hasShownScrollInfo) {
+        hasShownScrollInfo = true
+        showInfo('¡Explora las diferentes secciones! 👆', 3000)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [showInfo])
+
   // Smooth scroll to section
   const scrollToSection = (ref) => {
     if (ref.current) {
@@ -78,6 +108,7 @@ const Home = () => {
       <EnhancedParticles count={60} />
       <EnhancedCursor />
       <FloatingActionButton />
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
       
       {/* Fondos animados globales */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -147,19 +178,32 @@ const Home = () => {
             </h1>
           </motion.div>
 
-          {/* Descripción */}
-          <motion.p
+          {/* Descripción con typing animation */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-2xl text-brand-soft font-body max-w-4xl mx-auto leading-relaxed"
           >
-            Transformo ideas complejas en{' '}
-            <span className="text-gradient font-body-semibold">
-              soluciones digitales elegantes
-            </span>
-            . Especializado en desarrollo web, automatización de procesos y arquitecturas cloud.
-          </motion.p>
+            <TypingAnimation
+              text="Transformo ideas complejas en "
+              speed={50}
+              delay={1000}
+              className="text-brand-soft"
+            />
+            <TypingAnimation
+              text="soluciones digitales elegantes"
+              speed={30}
+              delay={3000}
+              className="text-gradient font-body-semibold"
+            />
+            <TypingAnimation
+              text=". Especializado en desarrollo web, automatización de procesos y arquitecturas cloud."
+              speed={40}
+              delay={6000}
+              className="text-brand-soft"
+            />
+          </motion.div>
 
           {/* CTAs */}
           <motion.div
@@ -188,7 +232,10 @@ const Home = () => {
             </motion.button>
             
             <motion.button
-              onClick={() => scrollToSection(contactRef)}
+              onClick={() => {
+                scrollToSection(contactRef)
+                showInfo('¡Perfecto! Te llevo a la sección de contacto 💬', 3000)
+              }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="btn-secondary text-lg px-10 py-5"
