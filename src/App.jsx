@@ -5,6 +5,7 @@ import Navigation from './components/Navigation'
 import CursorGlow from './components/CursorGlow'
 import AnimatedParticles from './components/AnimatedParticles'
 import PageTransition from './components/PageTransition'
+import ParallaxTransition from './components/ParallaxTransition'
 import ErrorBoundary from './components/ErrorBoundary'
 import ScrollIndicator from './components/ScrollIndicator'
 import EnhancedScrollIndicator from './components/EnhancedScrollIndicator'
@@ -58,17 +59,19 @@ const AppContent = () => {
       <Navigation />
       <BackToTop />
       
-      <PageTransition location={location}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </AnimatePresence>
-      </PageTransition>
+      <ParallaxTransition>
+        <PageTransition location={location}>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </AnimatePresence>
+        </PageTransition>
+      </ParallaxTransition>
     </div>
   )
 }

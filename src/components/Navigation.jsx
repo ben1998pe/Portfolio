@@ -10,12 +10,24 @@ const Navigation = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   const navItems = [
-    { name: 'Inicio', path: '/' },
-    { name: 'Servicios', path: '/services' },
-    { name: 'Proyectos', path: '/projects' },
-    { name: 'Sobre Mí', path: '/about' },
-    { name: 'Contacto', path: '/contact' },
+    { name: 'Inicio', path: '/', anchor: 'hero' },
+    { name: 'Servicios', path: '/', anchor: 'services' },
+    { name: 'Proyectos', path: '/', anchor: 'projects' },
+    { name: 'Sobre Mí', path: '/', anchor: 'about' },
+    { name: 'Contacto', path: '/', anchor: 'contact' },
   ]
+
+  // Smooth scroll to section
+  const scrollToSection = (anchorId) => {
+    const element = document.getElementById(anchorId)
+    if (element) {
+      const offsetTop = element.offsetTop - 100 // Offset para el header
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   return (
     <motion.nav
@@ -42,31 +54,25 @@ const Navigation = () => {
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
+              <motion.button
+                key={item.anchor}
+                onClick={() => scrollToSection(item.anchor)}
                 className="relative group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <motion.span
-                  whileHover={{ scale: 1.05 }}
-                  className={`text-sm font-ui transition-colors duration-300 ${
-                    location.pathname === item.path
-                      ? 'text-brand-accent'
-                      : 'text-white hover:text-brand-accent'
-                  }`}
-                >
+                <span className="text-sm font-ui transition-colors duration-300 text-white hover:text-brand-accent">
                   {item.name.toUpperCase()}
-                </motion.span>
+                </span>
                 
-                {/* Active indicator */}
-                {location.pathname === item.path && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-accent rounded-full"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </Link>
+                {/* Hover indicator */}
+                <motion.div
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-accent rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.button>
             ))}
           </div>
 
