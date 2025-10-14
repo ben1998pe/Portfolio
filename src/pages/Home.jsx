@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import Footer from '../components/Footer'
+import ScrollProgress from '../components/ScrollProgress'
+import EnhancedParticles from '../components/EnhancedParticles'
+import EnhancedCursor from '../components/EnhancedCursor'
+import FloatingActionButton from '../components/FloatingActionButton'
 import { projectsData } from '../data/projects'
 
 const Home = () => {
@@ -69,6 +73,12 @@ const Home = () => {
 
   return (
     <div className="relative w-full overflow-x-hidden">
+      {/* Componentes mejorados */}
+      <ScrollProgress />
+      <EnhancedParticles count={60} />
+      <EnhancedCursor />
+      <FloatingActionButton />
+      
       {/* Fondos animados globales */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
