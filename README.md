@@ -14,7 +14,11 @@ Un portafolio moderno y elegante construido con React, Vite y Framer Motion, dis
 
 </div>
 
+<em>📝 Actualizado: 2025-10-15</em>
+
 ---
+
+ 
 
 ## 📋 Tabla de Contenidos
 
