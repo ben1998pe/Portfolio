@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useInView } from 'framer-motion'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import Footer from '../components/Footer'
 import ScrollProgress from '../components/ScrollProgress'
@@ -9,6 +10,36 @@ import TypingAnimation from '../components/TypingAnimation'
 import ToastContainer from '../components/ToastContainer'
 import useToast from '../hooks/useToast'
 import { projectsData } from '../data/projects'
+
+// Componente de contador animado
+const AnimatedCounter = ({ value, duration = 2000 }) => {
+  const [count, setCount] = useState(0)
+  const nodeRef = useRef(null)
+  const isInView = useInView(nodeRef, { once: true })
+
+  useEffect(() => {
+    if (!isInView) return
+
+    const numericValue = parseInt(value.replace(/\D/g, ''))
+    const increment = numericValue / (duration / 16)
+    let current = 0
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= numericValue) {
+        setCount(numericValue)
+        clearInterval(timer)
+      } else {
+        setCount(Math.floor(current))
+      }
+    }, 16)
+
+    return () => clearInterval(timer)
+  }, [isInView, value, duration])
+
+  const suffix = value.replace(/[0-9]/g, '')
+  return <span ref={nodeRef}>{count}{suffix}</span>
+}
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -443,6 +474,110 @@ const Home = () => {
         </motion.div>
       </section>
 
+      {/* SKILLS SECTION */}
+      <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Tecnologías y habilidades">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto w-full"
+        >
+          <motion.div
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl lg:text-6xl font-title text-gradient mb-6">
+              TECNOLOGÍAS
+            </h2>
+            <p className="text-xl text-brand-soft max-w-3xl mx-auto">
+              Herramientas y lenguajes con los que trabajo día a día
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[
+              { name: 'React', icon: '⚛️', color: 'from-cyan-500 to-blue-500', level: 95 },
+              { name: 'JavaScript', icon: '🟨', color: 'from-yellow-500 to-orange-500', level: 90 },
+              { name: 'Node.js', icon: '🟢', color: 'from-green-500 to-emerald-500', level: 85 },
+              { name: 'Python', icon: '🐍', color: 'from-blue-500 to-indigo-500', level: 88 },
+              { name: 'Docker', icon: '🐳', color: 'from-blue-400 to-blue-600', level: 80 },
+              { name: 'AWS', icon: '☁️', color: 'from-orange-500 to-yellow-500', level: 75 },
+              { name: 'Git', icon: '📦', color: 'from-orange-600 to-red-600', level: 92 },
+              { name: 'TypeScript', icon: '📘', color: 'from-blue-600 to-blue-800', level: 87 },
+              { name: 'Tailwind', icon: '💨', color: 'from-cyan-400 to-blue-500', level: 93 },
+              { name: 'MongoDB', icon: '🍃', color: 'from-green-600 to-green-800', level: 82 },
+              { name: 'PostgreSQL', icon: '🐘', color: 'from-blue-500 to-indigo-600', level: 78 },
+              { name: 'N8N', icon: '⚡', color: 'from-purple-500 to-pink-500', level: 90 }
+            ].map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="group relative p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all cursor-pointer"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-20 rounded-2xl transition-opacity`} />
+                <div className="relative flex flex-col items-center gap-3">
+                  <motion.div 
+                    className="text-5xl"
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {skill.icon}
+                  </motion.div>
+                  <h3 className="text-lg font-title text-white">{skill.name}</h3>
+                  
+                  {/* Barra de progreso */}
+                  <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      transition={{ duration: 1, delay: index * 0.05 }}
+                      viewport={{ once: true }}
+                      className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
+                    />
+                  </div>
+                  <span className="text-xs text-brand-soft font-ui">{skill.level}%</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Certificaciones destacadas */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <h3 className="text-3xl font-title text-gradient mb-8">Certificaciones & Logros</h3>
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                '🏆 AWS Certified',
+                '🎓 Full Stack Developer',
+                '⚡ DevOps Engineer',
+                '🚀 Scrum Master'
+              ].map((cert, index) => (
+                <motion.div
+                  key={cert}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 border border-brand-primary/30 backdrop-blur-sm text-white font-ui"
+                >
+                  {cert}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
       {/* ABOUT SECTION */}
       <section id="about" ref={aboutRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Sobre mí">
         <motion.div
@@ -475,11 +610,15 @@ const Home = () => {
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
-                    whileHover={{ scale: 1.05 }}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.1, rotate: 3 }}
                     className="text-center p-6 rounded-xl bg-white/5 border border-white/10 hover:border-brand-primary/50 transition-all"
                   >
                     <div className={`text-4xl font-bold ${stat.color} font-ui`}>
-                      {stat.value}
+                      <AnimatedCounter value={stat.value} duration={2000} />
                     </div>
                     <div className="text-sm text-brand-soft font-ui mt-2">
                       {stat.label}
