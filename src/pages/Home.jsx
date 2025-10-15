@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import Footer from '../components/Footer'
 import ScrollProgress from '../components/ScrollProgress'
@@ -13,6 +13,7 @@ import { projectsData } from '../data/projects'
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showWelcome, setShowWelcome] = useState(false)
+  const [timeOfDay, setTimeOfDay] = useState('día')
   const heroRef = useRef(null)
   const servicesRef = useRef(null)
   const projectsRef = useRef(null)
@@ -52,28 +53,45 @@ const Home = () => {
     damping: 30
   })
 
-  // Mouse parallax effect
+  // Detectar hora del día para personalizar saludo
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e
-      const x = (clientX / window.innerWidth - 0.5) * 20
-      const y = (clientY / window.innerHeight - 0.5) * 20
-      setMousePosition({ x, y })
+    const hour = new Date().getHours()
+    if (hour >= 5 && hour < 12) {
+      setTimeOfDay('mañana')
+    } else if (hour >= 12 && hour < 18) {
+      setTimeOfDay('tarde')
+    } else {
+      setTimeOfDay('noche')
     }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Welcome notification
+  // Mouse parallax effect (optimizado con useCallback)
+  const handleMouseMove = useCallback((e) => {
+    const { clientX, clientY } = e
+    const x = (clientX / window.innerWidth - 0.5) * 20
+    const y = (clientY / window.innerHeight - 0.5) * 20
+    setMousePosition({ x, y })
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [handleMouseMove])
+
+  // Welcome notification personalizada por hora del día
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowWelcome(true)
-      showSuccess('¡Bienvenido a mi portafolio! 🚀', 4000)
+      const greetings = {
+        'mañana': '¡Buenos días! ☀️ Bienvenido a mi portafolio',
+        'tarde': '¡Buenas tardes! 🌤️ Bienvenido a mi portafolio',
+        'noche': '¡Buenas noches! 🌙 Bienvenido a mi portafolio'
+      }
+      showSuccess(greetings[timeOfDay], 4000)
     }, 2000)
 
     return () => clearTimeout(timer)
-  }, [showSuccess])
+  }, [showSuccess, timeOfDay])
 
   // Info notification when scrolling
   useEffect(() => {
@@ -90,8 +108,8 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [showInfo])
 
-  // Smooth scroll to section
-  const scrollToSection = (ref) => {
+  // Smooth scroll to section (optimizado con useCallback)
+  const scrollToSection = useCallback((ref) => {
     if (ref.current) {
       const offsetTop = ref.current.offsetTop - 100 // Offset para el header
       window.scrollTo({
@@ -99,7 +117,10 @@ const Home = () => {
         behavior: 'smooth'
       })
     }
-  }
+  }, [])
+
+  // Memoizar datos de proyectos filtrados
+  const featuredProjects = useMemo(() => projectsData.slice(0, 6), [])
 
   return (
     <div className="relative w-full overflow-x-hidden">
@@ -127,7 +148,7 @@ const Home = () => {
       </div>
 
       {/* HERO SECTION */}
-      <section id="hero" ref={heroRef} className="min-h-screen flex items-center justify-center px-4 relative w-full">
+      <section id="hero" ref={heroRef} className="min-h-screen flex items-center justify-center px-4 relative w-full" aria-label="Sección de inicio">
         <motion.div
           style={{
             x: mousePosition.x * 0.1,
@@ -148,8 +169,8 @@ const Home = () => {
                 animate={{ x: ['-100%', '200%'] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
               />
-              <span className="relative text-sm font-subtitle bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">
-                ✨ DISPONIBLE PARA PROYECTOS
+              <span className="relative text-sm font-subtitle bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent" role="status" aria-live="polite">
+                ✨ DISPONIBLE PARA PROYECTOS • {timeOfDay === 'mañana' ? '☀️' : timeOfDay === 'tarde' ? '🌤️' : '🌙'}
               </span>
             </div>
           </motion.div>
@@ -269,7 +290,7 @@ const Home = () => {
       </section>
 
       {/* SERVICES SECTION */}
-      <section id="services" ref={servicesRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full">
+      <section id="services" ref={servicesRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Servicios ofrecidos">
         <motion.div
           style={{ y: servicesY }}
           className="max-w-6xl mx-auto w-full"
@@ -350,7 +371,7 @@ const Home = () => {
       </section>
 
       {/* PROJECTS SECTION */}
-      <section id="projects" ref={projectsRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full">
+      <section id="projects" ref={projectsRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Proyectos destacados">
         <motion.div
           style={{ y: projectsY }}
           className="max-w-7xl mx-auto w-full"
@@ -371,7 +392,7 @@ const Home = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projectsData.slice(0, 6).map((project, index) => (
+            {featuredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -423,7 +444,7 @@ const Home = () => {
       </section>
 
       {/* ABOUT SECTION */}
-      <section id="about" ref={aboutRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full">
+      <section id="about" ref={aboutRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Sobre mí">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -477,7 +498,7 @@ const Home = () => {
       </section>
 
       {/* CONTACT SECTION */}
-      <section id="contact" ref={contactRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full">
+      <section id="contact" ref={contactRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Información de contacto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
