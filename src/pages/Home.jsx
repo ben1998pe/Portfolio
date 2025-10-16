@@ -157,7 +157,7 @@ const Home = () => {
     <div className="relative w-full overflow-x-hidden">
       {/* Componentes mejorados */}
       <ScrollProgress />
-      <EnhancedParticles count={60} />
+      <EnhancedParticles count={80} />
       <EnhancedCursor />
       <FloatingActionButton />
       <ToastContainer toasts={toasts} removeToast={removeToast} />
@@ -636,6 +636,132 @@ const Home = () => {
         </motion.div>
       </section>
 
+      {/* TESTIMONIALS SECTION */}
+      <section id="testimonials" className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Testimonios de clientes">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto w-full"
+        >
+          <motion.div
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl lg:text-6xl font-title text-gradient mb-6">
+              TESTIMONIOS
+            </h2>
+            <p className="text-xl text-brand-soft max-w-3xl mx-auto">
+              Lo que dicen mis clientes sobre mi trabajo
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "María González",
+                role: "CEO, TechStart",
+                avatar: "👩‍💼",
+                text: "Benjamin transformó completamente nuestra plataforma web. Su atención al detalle y conocimiento técnico son excepcionales. El proyecto se entregó a tiempo y superó nuestras expectativas.",
+                rating: 5,
+                color: "from-pink-500 to-purple-500"
+              },
+              {
+                name: "Carlos Mendoza",
+                role: "Director, InnovateCorp",
+                avatar: "👨‍💻",
+                text: "Excelente trabajo en la automatización de nuestros procesos con N8N. Ahora ahorramos 20 horas semanales en tareas repetitivas. Benjamin es un profesional de primera clase.",
+                rating: 5,
+                color: "from-blue-500 to-cyan-500"
+              },
+              {
+                name: "Ana Rodríguez",
+                role: "Marketing Manager, DigitalPro",
+                avatar: "👩‍🎨",
+                text: "La implementación de SEO y las mejoras de rendimiento aumentaron nuestro tráfico web en un 300%. Benjamin entiende perfectamente las necesidades del negocio.",
+                rating: 5,
+                color: "from-green-500 to-emerald-500"
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -10 }}
+                className="group relative p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${testimonial.color} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity`} />
+                <div className="relative">
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: index * 0.2 + i * 0.1 }}
+                        viewport={{ once: true }}
+                        className="text-yellow-400 text-xl"
+                      >
+                        ⭐
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  {/* Quote */}
+                  <blockquote className="text-brand-soft leading-relaxed mb-6 italic">
+                    "{testimonial.text}"
+                  </blockquote>
+                  
+                  {/* Author */}
+                  <div className="flex items-center gap-4">
+                    <div className="text-4xl">{testimonial.avatar}</div>
+                    <div>
+                      <h4 className="text-white font-title text-lg">{testimonial.name}</h4>
+                      <p className="text-brand-accent text-sm font-ui">{testimonial.role}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Stats adicionales */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          >
+            {[
+              { label: 'Clientes Satisfechos', value: '25+', icon: '😊' },
+              { label: 'Proyectos Completados', value: '50+', icon: '🚀' },
+              { label: 'Tiempo de Entrega', value: '99%', icon: '⏰' },
+              { label: 'Satisfacción', value: '100%', icon: '⭐' }
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="text-center p-6 rounded-xl bg-white/5 border border-white/10 hover:border-brand-primary/50 transition-all"
+              >
+                <div className="text-4xl mb-2">{stat.icon}</div>
+                <div className="text-2xl font-bold text-white font-ui mb-1">
+                  <AnimatedCounter value={stat.value} duration={1500} />
+                </div>
+                <div className="text-sm text-brand-soft font-ui">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
       {/* CONTACT SECTION */}
       <section id="contact" ref={contactRef} className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Información de contacto">
         <motion.div
@@ -652,37 +778,121 @@ const Home = () => {
             ¿Tienes un proyecto en mente? ¡Hablemos y hagámoslo realidad!
           </p>
           
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all"
-            >
-              <div className="text-4xl mb-4">📧</div>
-              <h3 className="text-2xl font-title text-white mb-4">Email</h3>
-              <p className="text-brand-soft mb-4">benjamin@bosccoa.com</p>
-              <a
-                href="mailto:benjamin@bosccoa.com"
-                className="btn-primary text-sm px-6 py-3"
+          <div className="grid lg:grid-cols-2 gap-12 mb-12">
+            {/* Información de contacto */}
+            <div className="space-y-6">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all"
               >
-                Enviar Email
-              </a>
-            </motion.div>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-3xl">📧</div>
+                  <div>
+                    <h3 className="text-xl font-title text-white">Email</h3>
+                    <p className="text-brand-soft">benjamin@bosccoa.com</p>
+                  </div>
+                </div>
+                <a
+                  href="mailto:benjamin@bosccoa.com"
+                  className="btn-primary text-sm px-4 py-2"
+                >
+                  Enviar Email
+                </a>
+              </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all"
-            >
-              <div className="text-4xl mb-4">💬</div>
-              <h3 className="text-2xl font-title text-white mb-4">LinkedIn</h3>
-              <p className="text-brand-soft mb-4">Conectemos profesionalmente</p>
-              <a
-                href="https://linkedin.com/in/benjaminoscco"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary text-sm px-6 py-3"
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all"
               >
-                Ver Perfil
-              </a>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-3xl">💬</div>
+                  <div>
+                    <h3 className="text-xl font-title text-white">LinkedIn</h3>
+                    <p className="text-brand-soft">Conectemos profesionalmente</p>
+                  </div>
+                </div>
+                <a
+                  href="https://linkedin.com/in/benjaminoscco"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary text-sm px-4 py-2"
+                >
+                  Ver Perfil
+                </a>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="text-3xl">⏰</div>
+                  <div>
+                    <h3 className="text-xl font-title text-white">Tiempo de Respuesta</h3>
+                    <p className="text-brand-soft">Menos de 24 horas</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Formulario de contacto */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
+            >
+              <h3 className="text-2xl font-title text-white mb-6">Envíame un mensaje</h3>
+              <form className="space-y-4">
+                <div>
+                  <label className="block text-brand-soft text-sm font-ui mb-2">Nombre</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:border-brand-primary focus:outline-none text-white placeholder-brand-soft"
+                    placeholder="Tu nombre"
+                  />
+                </div>
+                <div>
+                  <label className="block text-brand-soft text-sm font-ui mb-2">Email</label>
+                  <input
+                    type="email"
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:border-brand-primary focus:outline-none text-white placeholder-brand-soft"
+                    placeholder="tu@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-brand-soft text-sm font-ui mb-2">Proyecto</label>
+                  <select className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:border-brand-primary focus:outline-none text-white">
+                    <option value="">Selecciona el tipo de proyecto</option>
+                    <option value="web">Desarrollo Web</option>
+                    <option value="automation">Automatización</option>
+                    <option value="seo">SEO & Marketing</option>
+                    <option value="consulting">Consultoría</option>
+                    <option value="other">Otro</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-brand-soft text-sm font-ui mb-2">Mensaje</label>
+                  <textarea
+                    rows={4}
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:border-brand-primary focus:outline-none text-white placeholder-brand-soft resize-none"
+                    placeholder="Cuéntame sobre tu proyecto..."
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full btn-primary py-4 text-lg font-title"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    showSuccess('¡Mensaje enviado! Te contactaré pronto 📧', 4000)
+                  }}
+                >
+                  ENVIAR MENSAJE
+                </motion.button>
+              </form>
             </motion.div>
           </div>
 
