@@ -46,6 +46,8 @@ const Home = () => {
   const [showWelcome, setShowWelcome] = useState(false)
   const [timeOfDay, setTimeOfDay] = useState('día')
   const [activeSection, setActiveSection] = useState('hero')
+  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const heroRef = useRef(null)
   const servicesRef = useRef(null)
   const projectsRef = useRef(null)
@@ -84,6 +86,14 @@ const Home = () => {
     stiffness: 100,
     damping: 30
   })
+
+  // Cargar estado inicial
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Detectar hora del día para personalizar saludo
   useEffect(() => {
@@ -193,8 +203,49 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Toggle tema
+  const toggleTheme = useCallback(() => {
+    setIsDarkMode(prev => !prev)
+  }, [])
+
+  // Pantalla de carga
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-gradient-to-br from-brand-ink to-brand-primary flex items-center justify-center z-50">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="text-center"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="w-20 h-20 border-4 border-brand-accent/30 border-t-brand-accent rounded-full mx-auto mb-8"
+          />
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-4xl font-title text-gradient mb-4"
+          >
+            BOSCCOA
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-brand-soft text-lg"
+          >
+            Cargando portafolio...
+          </motion.p>
+        </motion.div>
+      </div>
+    )
+  }
+
   return (
-    <div className="relative w-full overflow-x-hidden">
+    <div className={`relative w-full overflow-x-hidden transition-colors duration-500 ${isDarkMode ? 'dark' : 'light'}`}>
       {/* Componentes mejorados */}
       <ScrollProgress />
       <EnhancedParticles count={80} />
@@ -216,6 +267,7 @@ const Home = () => {
             { id: 'projects', label: 'Proyectos', icon: '🚀' },
             { id: 'skills', label: 'Skills', icon: '💻' },
             { id: 'blog', label: 'Blog', icon: '📝' },
+            { id: 'experience', label: 'Experiencia', icon: '💼' },
             { id: 'testimonials', label: 'Testimonios', icon: '⭐' },
             { id: 'about', label: 'About', icon: '👨‍💻' },
             { id: 'contact', label: 'Contacto', icon: '📧' }
@@ -256,6 +308,21 @@ const Home = () => {
               </span>
             </motion.button>
           ))}
+          
+          {/* Toggle de tema */}
+          <div className="border-t border-white/10 pt-4 mt-4">
+            <motion.button
+              onClick={toggleTheme}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all text-brand-soft hover:text-white"
+              title={`Cambiar a modo ${isDarkMode ? 'claro' : 'oscuro'}`}
+            >
+              <div className="text-xl">
+                {isDarkMode ? '☀️' : '🌙'}
+              </div>
+            </motion.button>
+          </div>
         </div>
       </motion.div>
       
@@ -930,6 +997,160 @@ const Home = () => {
             >
               Ver Todos los Artículos
             </motion.button>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* EXPERIENCE SECTION */}
+      <section id="experience" className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Experiencia laboral">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-6xl mx-auto w-full"
+        >
+          <motion.div
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl lg:text-6xl font-title text-gradient mb-6">
+              EXPERIENCIA
+            </h2>
+            <p className="text-xl text-brand-soft max-w-3xl mx-auto">
+              Mi trayectoria profesional y logros destacados
+            </p>
+          </motion.div>
+
+          {/* Timeline */}
+          <div className="relative">
+            {/* Línea central */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-brand-primary via-brand-accent to-brand-primary opacity-30"></div>
+
+            {[
+              {
+                title: "Full Stack Developer",
+                company: "TechCorp Solutions",
+                period: "2022 - Presente",
+                description: "Desarrollo de aplicaciones web completas usando React, Node.js y AWS. Lideré la implementación de microservicios que mejoraron el rendimiento en un 40%.",
+                achievements: ["Mejoré el rendimiento de la aplicación en 40%", "Implementé CI/CD con Docker y AWS", "Mentoreé a 3 desarrolladores junior"],
+                icon: "🚀",
+                color: "from-blue-500 to-cyan-500",
+                side: "left"
+              },
+              {
+                title: "Frontend Developer",
+                company: "Digital Innovations",
+                period: "2021 - 2022",
+                description: "Especializado en desarrollo frontend con React y TypeScript. Creé componentes reutilizables que redujeron el tiempo de desarrollo en 30%.",
+                achievements: ["Reduje tiempo de desarrollo en 30%", "Implementé sistema de diseño consistente", "Optimicé Core Web Vitals"],
+                icon: "💻",
+                color: "from-purple-500 to-pink-500",
+                side: "right"
+              },
+              {
+                title: "Junior Developer",
+                company: "StartupTech",
+                period: "2020 - 2021",
+                description: "Primeros pasos en desarrollo web profesional. Trabajé en proyectos de automatización y desarrollo de APIs REST.",
+                achievements: ["Desarrollé 5 APIs REST completas", "Automaticé procesos con N8N", "Aprendí metodologías ágiles"],
+                icon: "🌱",
+                color: "from-green-500 to-emerald-500",
+                side: "left"
+              }
+            ].map((job, index) => (
+              <motion.div
+                key={job.title}
+                initial={{ opacity: 0, x: job.side === 'left' ? -100 : 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`relative flex items-center mb-16 ${job.side === 'left' ? 'justify-start' : 'justify-end'}`}
+              >
+                <div className={`w-5/12 ${job.side === 'left' ? 'mr-auto pr-8' : 'ml-auto pl-8'}`}>
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="relative p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all group"
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-br ${job.color} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity`} />
+                    
+                    <div className="relative">
+                      {/* Header */}
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="text-4xl">{job.icon}</div>
+                        <div>
+                          <h3 className="text-2xl font-title text-white mb-1">{job.title}</h3>
+                          <p className="text-brand-accent font-ui text-lg">{job.company}</p>
+                          <p className="text-brand-soft text-sm">{job.period}</p>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-brand-soft leading-relaxed mb-4">
+                        {job.description}
+                      </p>
+
+                      {/* Achievements */}
+                      <div className="space-y-2">
+                        <h4 className="text-white font-ui text-sm font-semibold mb-2">Logros destacados:</h4>
+                        {job.achievements.map((achievement, idx) => (
+                          <div key={idx} className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-brand-primary rounded-full"></div>
+                            <span className="text-brand-soft text-sm">{achievement}</span>
+                          </div>
+            ))}
+          </div>
+
+          {/* Toggle de tema */}
+          <div className="border-t border-white/10 pt-4 mt-4">
+            <motion.button
+              onClick={toggleTheme}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all text-brand-soft hover:text-white"
+              title={`Cambiar a modo ${isDarkMode ? 'claro' : 'oscuro'}`}
+            >
+              <div className="text-xl">
+                {isDarkMode ? '☀️' : '🌙'}
+              </div>
+            </motion.button>
+          </div>
+        </div>
+      </motion.div>
+                </div>
+
+                {/* Punto central */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-brand-primary rounded-full border-4 border-white/20 z-10"></div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Skills adquiridas */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <h3 className="text-3xl font-title text-gradient mb-8">Skills Adquiridas</h3>
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                'React & TypeScript', 'Node.js & Express', 'AWS & Docker', 'MongoDB & PostgreSQL',
+                'N8N Automation', 'CI/CD Pipelines', 'Microservices', 'Agile Methodologies'
+              ].map((skill, index) => (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.1, y: -3 }}
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 border border-brand-primary/30 backdrop-blur-sm text-white font-ui hover:from-brand-primary/30 hover:to-brand-accent/30 transition-all"
+                >
+                  {skill}
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </section>
