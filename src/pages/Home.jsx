@@ -45,6 +45,7 @@ const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showWelcome, setShowWelcome] = useState(false)
   const [timeOfDay, setTimeOfDay] = useState('día')
+  const [activeSection, setActiveSection] = useState('hero')
   const heroRef = useRef(null)
   const servicesRef = useRef(null)
   const projectsRef = useRef(null)
@@ -153,6 +154,45 @@ const Home = () => {
   // Memoizar datos de proyectos filtrados
   const featuredProjects = useMemo(() => projectsData.slice(0, 6), [])
 
+  // Detectar sección activa en scroll
+  useEffect(() => {
+    const sections = [
+      { id: 'hero', ref: heroRef },
+      { id: 'services', ref: servicesRef },
+      { id: 'projects', ref: projectsRef },
+      { id: 'skills', ref: null },
+      { id: 'blog', ref: null },
+      { id: 'testimonials', ref: null },
+      { id: 'about', ref: aboutRef },
+      { id: 'contact', ref: contactRef }
+    ]
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 200
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i]
+        if (section.ref && section.ref.current) {
+          const { offsetTop, offsetHeight } = section.ref.current
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section.id)
+            break
+          }
+        } else {
+          // Para secciones sin ref, usar estimación basada en índice
+          const estimatedOffset = (i + 1) * window.innerHeight
+          if (scrollPosition >= estimatedOffset - 300) {
+            setActiveSection(section.id)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <div className="relative w-full overflow-x-hidden">
       {/* Componentes mejorados */}
@@ -161,6 +201,63 @@ const Home = () => {
       <EnhancedCursor />
       <FloatingActionButton />
       <ToastContainer toasts={toasts} removeToast={removeToast} />
+
+      {/* Indicador de navegación lateral */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        className="fixed left-8 top-1/2 transform -translate-y-1/2 z-40 hidden lg:block"
+      >
+        <div className="flex flex-col gap-4 p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+          {[
+            { id: 'hero', label: 'Inicio', icon: '🏠' },
+            { id: 'services', label: 'Servicios', icon: '⚙️' },
+            { id: 'projects', label: 'Proyectos', icon: '🚀' },
+            { id: 'skills', label: 'Skills', icon: '💻' },
+            { id: 'blog', label: 'Blog', icon: '📝' },
+            { id: 'testimonials', label: 'Testimonios', icon: '⭐' },
+            { id: 'about', label: 'About', icon: '👨‍💻' },
+            { id: 'contact', label: 'Contacto', icon: '📧' }
+          ].map((item, index) => (
+            <motion.button
+              key={item.id}
+              onClick={() => {
+                const sectionMap = {
+                  hero: heroRef,
+                  services: servicesRef,
+                  projects: projectsRef,
+                  about: aboutRef,
+                  contact: contactRef
+                }
+                if (sectionMap[item.id]) {
+                  scrollToSection(sectionMap[item.id])
+                }
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className={`relative p-3 rounded-xl transition-all duration-300 ${
+                activeSection === item.id
+                  ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/25'
+                  : 'text-brand-soft hover:text-white hover:bg-white/10'
+              }`}
+              title={item.label}
+            >
+              <span className="text-xl">{item.icon}</span>
+              {activeSection === item.id && (
+                <motion.div
+                  layoutId="activeIndicator"
+                  className="absolute inset-0 bg-brand-primary rounded-xl"
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+              <span className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 text-sm font-ui whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                {item.label}
+              </span>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
       
       {/* Fondos animados globales */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -175,6 +272,46 @@ const Home = () => {
         <motion.div
           style={{ y: projectsY }}
           className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-gradient-to-br from-orange-500/15 to-yellow-500/15 rounded-full blur-3xl"
+        />
+        
+        {/* Efectos de partículas flotantes adicionales */}
+        <motion.div
+          animate={{
+            y: [0, -20, 0],
+            x: [0, 10, 0],
+            rotate: [0, 180, 360]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-1/4 right-1/3 w-4 h-4 bg-brand-accent/30 rounded-full blur-sm"
+        />
+        <motion.div
+          animate={{
+            y: [0, 15, 0],
+            x: [0, -15, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-brand-primary/40 rounded-full blur-sm"
+        />
+        <motion.div
+          animate={{
+            y: [0, -25, 0],
+            rotate: [0, -180, -360]
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-2/3 right-1/4 w-2 h-2 bg-white/20 rounded-full blur-sm"
         />
       </div>
 
@@ -633,6 +770,167 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </motion.div>
+      </section>
+
+      {/* BLOG SECTION */}
+      <section id="blog" className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Artículos y blog técnico">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto w-full"
+        >
+          <motion.div
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl lg:text-6xl font-title text-gradient mb-6">
+              ARTÍCULOS
+            </h2>
+            <p className="text-xl text-brand-soft max-w-3xl mx-auto">
+              Comparto mi conocimiento y experiencias en desarrollo y tecnología
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "React 18: Nuevas Características y Mejores Prácticas",
+                excerpt: "Explora las últimas características de React 18 incluyendo Concurrent Features, Suspense mejorado y el nuevo hook useId.",
+                category: "React",
+                readTime: "8 min",
+                date: "2024-01-15",
+                image: "⚛️",
+                color: "from-blue-500 to-cyan-500",
+                tags: ["React", "JavaScript", "Frontend"]
+              },
+              {
+                title: "Automatización con N8N: Guía Completa",
+                excerpt: "Aprende a automatizar procesos empresariales usando N8N, desde configuración básica hasta workflows complejos.",
+                category: "Automatización",
+                readTime: "12 min",
+                date: "2024-01-10",
+                image: "⚡",
+                color: "from-purple-500 to-pink-500",
+                tags: ["N8N", "Automatización", "Workflows"]
+              },
+              {
+                title: "SEO Técnico: Optimización de Core Web Vitals",
+                excerpt: "Mejora el rendimiento de tu sitio web y optimiza las métricas de Core Web Vitals para mejor SEO.",
+                category: "SEO",
+                readTime: "10 min",
+                date: "2024-01-05",
+                image: "🚀",
+                color: "from-green-500 to-emerald-500",
+                tags: ["SEO", "Performance", "Web Vitals"]
+              },
+              {
+                title: "Docker para Desarrolladores: Containerización Eficiente",
+                excerpt: "Domina Docker desde cero: contenedores, imágenes, docker-compose y mejores prácticas para desarrollo.",
+                category: "DevOps",
+                readTime: "15 min",
+                date: "2023-12-28",
+                image: "🐳",
+                color: "from-blue-400 to-blue-600",
+                tags: ["Docker", "DevOps", "Containers"]
+              },
+              {
+                title: "TypeScript Avanzado: Tipos y Patrones",
+                excerpt: "Profundiza en TypeScript con tipos avanzados, generics, utility types y patrones de diseño.",
+                category: "TypeScript",
+                readTime: "14 min",
+                date: "2023-12-20",
+                image: "📘",
+                color: "from-blue-600 to-blue-800",
+                tags: ["TypeScript", "JavaScript", "Types"]
+              },
+              {
+                title: "AWS Lambda: Serverless Functions en Producción",
+                excerpt: "Construye aplicaciones serverless escalables con AWS Lambda, desde configuración hasta monitoreo.",
+                category: "Cloud",
+                readTime: "18 min",
+                date: "2023-12-15",
+                image: "☁️",
+                color: "from-orange-500 to-yellow-500",
+                tags: ["AWS", "Serverless", "Lambda"]
+              }
+            ].map((article, index) => (
+              <motion.div
+                key={article.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -10 }}
+                className="group relative p-6 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all cursor-pointer"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${article.color} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity`} />
+                <div className="relative">
+                  {/* Header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-3xl">{article.image}</div>
+                    <div className="flex-1">
+                      <span className="px-3 py-1 rounded-full bg-brand-primary/20 text-brand-primary text-xs font-ui">
+                        {article.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-title text-white mb-3 group-hover:text-gradient transition-colors">
+                    {article.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="text-brand-soft leading-relaxed mb-4 text-sm">
+                    {article.excerpt}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {article.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-1 rounded-lg bg-white/10 text-xs font-ui text-brand-soft">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between text-xs text-brand-soft">
+                    <span>{article.readTime} de lectura</span>
+                    <span>{article.date}</span>
+                  </div>
+
+                  {/* Read More Button */}
+                  <motion.div
+                    className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <button className="text-brand-primary font-ui text-sm hover:text-brand-accent transition-colors">
+                      Leer más →
+                    </button>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA para más artículos */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 border border-brand-primary/30 backdrop-blur-sm text-white font-title hover:from-brand-primary/30 hover:to-brand-accent/30 transition-all"
+            >
+              Ver Todos los Artículos
+            </motion.button>
+          </motion.div>
         </motion.div>
       </section>
 
