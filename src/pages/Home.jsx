@@ -48,6 +48,7 @@ const Home = () => {
   const [activeSection, setActiveSection] = useState('hero')
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
+  const [soundEnabled, setSoundEnabled] = useState(false)
   const heroRef = useRef(null)
   const servicesRef = useRef(null)
   const projectsRef = useRef(null)
@@ -135,6 +136,24 @@ const Home = () => {
     return () => clearTimeout(timer)
   }, [showSuccess, timeOfDay])
 
+  // Notificación de características del portafolio
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      showInfo('💡 Tip: Usa la navegación lateral para explorar las secciones', 5000)
+    }, 8000)
+
+    return () => clearTimeout(timer)
+  }, [showInfo])
+
+  // Notificación de interacción
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      showInfo('🎨 Prueba el modo claro/oscuro con el botón de la navegación', 4000)
+    }, 15000)
+
+    return () => clearTimeout(timer)
+  }, [showInfo])
+
   // Info notification when scrolling
   useEffect(() => {
     let hasShownScrollInfo = false
@@ -206,7 +225,17 @@ const Home = () => {
   // Toggle tema
   const toggleTheme = useCallback(() => {
     setIsDarkMode(prev => !prev)
-  }, [])
+    if (soundEnabled) {
+      // Efecto de sonido simulado (en una implementación real usarías Web Audio API)
+      console.log('🔊 Tema cambiado')
+    }
+  }, [soundEnabled])
+
+  // Toggle sonido
+  const toggleSound = useCallback(() => {
+    setSoundEnabled(prev => !prev)
+    showInfo(soundEnabled ? '🔇 Sonidos desactivados' : '🔊 Sonidos activados', 2000)
+  }, [soundEnabled, showInfo])
 
   // Pantalla de carga
   if (isLoading) {
@@ -269,6 +298,7 @@ const Home = () => {
             { id: 'blog', label: 'Blog', icon: '📝' },
             { id: 'experience', label: 'Experiencia', icon: '💼' },
             { id: 'testimonials', label: 'Testimonios', icon: '⭐' },
+            { id: 'certifications', label: 'Certificaciones', icon: '🏆' },
             { id: 'about', label: 'About', icon: '👨‍💻' },
             { id: 'contact', label: 'Contacto', icon: '📧' }
           ].map((item, index) => (
@@ -309,8 +339,8 @@ const Home = () => {
             </motion.button>
           ))}
           
-          {/* Toggle de tema */}
-          <div className="border-t border-white/10 pt-4 mt-4">
+          {/* Controles */}
+          <div className="border-t border-white/10 pt-4 mt-4 space-y-2">
             <motion.button
               onClick={toggleTheme}
               whileHover={{ scale: 1.1 }}
@@ -320,6 +350,18 @@ const Home = () => {
             >
               <div className="text-xl">
                 {isDarkMode ? '☀️' : '🌙'}
+              </div>
+            </motion.button>
+            
+            <motion.button
+              onClick={toggleSound}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all text-brand-soft hover:text-white"
+              title={`${soundEnabled ? 'Desactivar' : 'Activar'} sonidos`}
+            >
+              <div className="text-xl">
+                {soundEnabled ? '🔊' : '🔇'}
               </div>
             </motion.button>
           </div>
@@ -778,6 +820,184 @@ const Home = () => {
                 </motion.div>
               ))}
             </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* CERTIFICATIONS SECTION */}
+      <section id="certifications" className="min-h-screen flex items-center justify-center px-4 py-20 w-full" aria-label="Certificaciones y logros">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto w-full"
+        >
+          <motion.div
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl lg:text-6xl font-title text-gradient mb-6">
+              CERTIFICACIONES
+            </h2>
+            <p className="text-xl text-brand-soft max-w-3xl mx-auto">
+              Certificaciones profesionales y logros académicos
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "AWS Certified Solutions Architect",
+                issuer: "Amazon Web Services",
+                date: "2023",
+                badge: "☁️",
+                color: "from-orange-500 to-yellow-500",
+                description: "Arquitectura de soluciones en la nube AWS",
+                skills: ["Cloud Architecture", "AWS Services", "Security", "Scalability"]
+              },
+              {
+                title: "React Developer Certification",
+                issuer: "Meta (Facebook)",
+                date: "2023",
+                badge: "⚛️",
+                color: "from-blue-500 to-cyan-500",
+                description: "Desarrollo avanzado con React y ecosistema",
+                skills: ["React", "Hooks", "Context API", "Testing"]
+              },
+              {
+                title: "Google Analytics Certified",
+                issuer: "Google",
+                date: "2022",
+                badge: "📊",
+                color: "from-green-500 to-emerald-500",
+                description: "Análisis de datos y métricas web",
+                skills: ["Analytics", "Data Analysis", "Reporting", "SEO"]
+              },
+              {
+                title: "Docker Certified Associate",
+                issuer: "Docker Inc.",
+                date: "2022",
+                badge: "🐳",
+                color: "from-blue-400 to-blue-600",
+                description: "Containerización y orquestación",
+                skills: ["Docker", "Containers", "DevOps", "CI/CD"]
+              },
+              {
+                title: "Scrum Master Certification",
+                issuer: "Scrum Alliance",
+                date: "2021",
+                badge: "🏃‍♂️",
+                color: "from-purple-500 to-pink-500",
+                description: "Metodologías ágiles y liderazgo de equipos",
+                skills: ["Agile", "Scrum", "Team Leadership", "Project Management"]
+              },
+              {
+                title: "Microsoft Azure Fundamentals",
+                issuer: "Microsoft",
+                date: "2021",
+                badge: "🔷",
+                color: "from-blue-600 to-indigo-600",
+                description: "Fundamentos de computación en la nube",
+                skills: ["Azure", "Cloud Computing", "Virtualization", "Networking"]
+              }
+            ].map((cert, index) => (
+              <motion.div
+                key={cert.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -10, rotateY: 5 }}
+                className="group relative p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-brand-primary/50 transition-all cursor-pointer"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${cert.color} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity`} />
+                <div className="relative">
+                  {/* Header */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <motion.div
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-5xl"
+                    >
+                      {cert.badge}
+                    </motion.div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-title text-white mb-1 group-hover:text-gradient transition-colors">
+                        {cert.title}
+                      </h3>
+                      <p className="text-brand-accent font-ui text-sm">{cert.issuer}</p>
+                      <p className="text-brand-soft text-xs">{cert.date}</p>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-brand-soft leading-relaxed mb-6 text-sm">
+                    {cert.description}
+                  </p>
+
+                  {/* Skills */}
+                  <div className="space-y-3">
+                    <h4 className="text-white font-ui text-sm font-semibold">Skills certificadas:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {cert.skills.map((skill, idx) => (
+                        <motion.span
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + idx * 0.05 }}
+                          viewport={{ once: true }}
+                          whileHover={{ scale: 1.1 }}
+                          className="px-3 py-1 rounded-full bg-white/10 text-xs font-ui text-brand-soft hover:bg-brand-primary/20 hover:text-white transition-all"
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Ver certificado button */}
+                  <motion.div
+                    className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <button className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 border border-brand-primary/30 text-brand-primary font-ui text-sm hover:from-brand-primary/30 hover:to-brand-accent/30 transition-all">
+                      Ver Certificado →
+                    </button>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Stats de certificaciones */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          >
+            {[
+              { label: 'Certificaciones', value: '6+', icon: '🏆' },
+              { label: 'Años Estudiando', value: '4+', icon: '📚' },
+              { label: 'Horas de Estudio', value: '500+', icon: '⏰' },
+              { label: 'Plataformas', value: '5+', icon: '🌐' }
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="text-center p-6 rounded-xl bg-white/5 border border-white/10 hover:border-brand-primary/50 transition-all"
+              >
+                <div className="text-4xl mb-2">{stat.icon}</div>
+                <div className="text-2xl font-bold text-white font-ui mb-1">
+                  <AnimatedCounter value={stat.value} duration={1500} />
+                </div>
+                <div className="text-sm text-brand-soft font-ui">{stat.label}</div>
+              </motion.div>
+            ))}
           </motion.div>
         </motion.div>
       </section>
